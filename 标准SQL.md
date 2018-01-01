@@ -16,11 +16,11 @@ CREAT TABLE table_name
 
 (        col1 该列数据类型 NOT NULL / NULL ,
 
-​         col2 该列数据类型 NOT NULL / NULL,
+​        col2 该列数据类型 NOT NULL / NULL,
 
-​         col3 该列数据类型 ，
+​        col3 该列数据类型 ，
 
-​         col3 该列数据类型 NOT NULL DEFUALT 10
+​        col3 该列数据类型 NOT NULL DEFUALT 10
 
 ); 
 
@@ -74,7 +74,7 @@ DROP TABLE table_name;
 
 \- - -
 
-\- 重命名表 **此处有待确定**
+\- 重命名表 **此处有待根据使用的数据系统确定** 
 
 \```
 
@@ -82,11 +82,85 @@ RENAME old_table_name new_table_table
 
 \```
 
+\- - -
+
 \# 一、增
 
 \## 第 15 章 插入数据
 
-INSERT INTO tables(col1,col2,col3,col4.....) VALUES(sth/data/value) ==> tables表 中明确提供了列名，VALUES 必须按照指定顺序匹配列名 // 插入部分行，既省略列(该值可为 NULL 或者有默认值) //插入检索数据 INSERT INTO table1(col1,
+- 将数据以行的形式插入至数据表中
+  `INSERT` 插入一行
+  `INSERT SELECT`插入多行
+
+1. 插入完整的行
+
+```
+  # 这种写法，插入的数据依赖于表定义的结构，数据由`VALUES`给出，不是很安全，避免使用
+  INSERT INTO table_name
+  VALUES(col1_data,
+         col2_data,
+         col3_data,
+         col4_data,
+         NULL); 
+```
+
+```
+  # 更安全，但是繁琐的方法,tables表 中明确提供了列名，VALUES 必须按照指定顺序匹配列名
+  INSERT INTO table_name(col1,
+                         col2,
+                         col3,
+                         col4,
+                         col5)
+  VALUES(col1_data,
+         col2_data,
+         col3_data,
+         col4_data,
+         NULL); 
+```
+
+
+2. 插入行的某一部分，也就是其中的某些字段
+
+```
+# 插入部分行，省略其中的某些字段，该字段必须满足允许`NULL`值或给出默认值
+  INSERT INTO table_name(col1,
+                         col2,
+                         col3 NULL 
+                         col4,
+                         col5 DEFUALT 10)
+  VALUES(col1_data,
+         col2_data,
+
+         col4_data,
+         NULL); 
+```
+
+3. 插入查询语句的结果
+
+```
+# 这里要建立新表，并且`SELECT`语句返回的是列的位置，第一列填充制定的第一列 
+INSERT INTO table2(col1,
+                   col2,
+                   col3,
+                   col4) 
+SELECT col5,
+       col6,
+       col7,
+       col8
+From table1;
+```
+
+
+
+- 从一个表复制到另一个表
+
+  使用`SELECT INTO`
+
+```
+SELECT *
+INTO table2
+FROM table1;
+```
 
 \- - -
 
