@@ -168,7 +168,53 @@ FROM table1;
 
 \## 第 16 章 更新和删除数据(行 & 列)
 
- // UPDATE（可以删除、修改列） table SET col1 = new_value1,col2 = new_value2...coln =NULL WHERE condition/子查询 //DELETE（删除整行） FROM table WHERE condition //
+- 更新表中特定的行
+- 更新表中所有的行
+
+```
+#更新语句结构
+要更新的表，总是以要更新的表名开始
+列名和他们的新值,以`SET`子句进行设置,新值可以使用子查询
+确定要更新行的conditions,以`WHERE`子句结束
+```
+
+```
+UPDATE table_name
+SET col1 = new_value1,
+    col2 = new_value2,
+    ...
+    coln = new_value3
+WHERE  another = conditions;
+```
+
+- - -
+
+- 删除某行中某列的值
+
+```
+# 设置为`NULL`
+UPDATE table_name
+SET col1 = new_value1,
+    col2 = NULL,
+    ...
+    coln = new_value3
+WHERE  another = conditions;
+```
+
+- 删除表中特定的整行
+- 删除表中所有的行
+- 均指删除表中的内容，而不是表的结构
+
+```
+DELETE FROM table_name
+WHERE col = conditions;
+```
+
+/- - -
+
+- 以上更新、删除语句均携带了`WHERE`子句，若无，则更新或者删除表中的所有行
+- 每个表中都有主键，在`WHERE`中尽量使用他
+- 在进行更新或者删除操作前，先用`SELECT`测试过滤`conditons`
 
 \- - -
 
