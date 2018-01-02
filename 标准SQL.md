@@ -210,7 +210,7 @@ DELETE FROM table_name
 WHERE col = conditions;
 ```
 
-/- - -
+- - -
 
 - 以上更新、删除语句均携带了`WHERE`子句，若无，则更新或者删除表中的所有行
 - 每个表中都有主键，在`WHERE`中尽量使用他
@@ -304,7 +304,8 @@ WHERE fun1(col1) = fun1('string')
 
 ## 第 9 章 汇总数据 
 
-```SELCT AVG /COUNT /MAX /MIN /SUM(DISTINCT col / *) AS new_col 
+```
+SELCT AVG /COUNT /MAX /MIN /SUM(DISTINCT col / *) AS new_col 
 
 FROM table WHERE condition 
 
