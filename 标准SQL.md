@@ -225,14 +225,52 @@ WHERE col = conditions;
 SELECT[返回的列或者表达式] -> FROM[要求检索的表] -> WHERE[行级过滤] -> GROUP BY[无序分组] -> HAVING[组级过滤] -> ORDER BY[有序分组] -> LIMIT n1 OFFSET n2[限制从 n2 行起返回 n1 行] // 内联结 自联结 自然联结 交叉联结 左 右 全外联结 // **每条 SQL 语句以 `; `结束
 
 ## 第 2 章 检索数据 
+关键字：sql 中的保留字，不能作为列或者表的名字
+sql 语句不区分大小写，sql 关键字一般大写，表名和列名一般小写
+在处理 sql 语句时，其中空格均被忽略，只是为了便于阅读
+多条 sql 语句，必须使用`;`为结尾
+
+使用`SELECT`检索数据，必须给出 —— 想选择什么，从什么地方选，返回的数据没有特定的顺序
 
 ```
+# 检索单列
+SELECT col1 
+FROM table_name;
+```
 
+```
+# 检索多列
+SELECT col1,col2,...,coln
+FROM table_name;
+```
+
+除非确实需要使用每一列，否则最好别使用`*`,但是这会降低性能
+```
+# 检索所有列
+SELECT *
+FROM table_name;
+```
+
+使用`DISTINCT`检索不同的值，必须将其放在列名前面，但是作用于表中的所有列，重复的值只按照一次计算
+```
+# 检索不同的值
 SELECT DISTINCT cols 
-
-FROM table LIMIT n1 OFFSET n2 (排除重复的值)
-
+FROM table_name;
 ```
+
+限制返回一定数量的行数，不同的DBMS不同
+```
+# 返回前五行的数据
+SELECT col1
+FROM table_name;
+LIMIT 5;
+
+# 返回后五行的数据
+SELECT col1
+FROM table_name;
+LIMIT 5 OFFSET 5;
+```
+
 
 ## 第 3 章 排序检索数据 
 
@@ -406,3 +444,5 @@ SELCET1 UNION(自动去除重复的行)/UNION ALL(返回所有重复的行) SELE
 # 参考资料：
 
 1. 《SQL 必知必会》
+
+```
