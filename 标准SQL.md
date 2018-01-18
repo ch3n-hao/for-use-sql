@@ -251,14 +251,15 @@ SELECT *
 FROM table_name;
 ```
 
-使用`DISTINCT`检索不同的值，必须将其放在列名前面，但是作用于表中的所有列，重复的值只按照一次计算
+使用`DISTINCT`检索不同的值，过滤重复的值，必须将其放在列名前面，但是作用于表中的所有列，重复的值只按照一次计算
 ```
 # 检索不同的值
 SELECT DISTINCT cols 
 FROM table_name;
 ```
 
-限制返回一定数量的行数，不同的DBMS不同
+限制返回一定数量的行数，不同的DBMS不同，这里特指PostGreSql
+`LIMIT` 指定返回的数目 `OFFSET` 指定从哪里开始，默认从第`0`行开始
 ```
 # 返回前五行的数据
 SELECT col1
@@ -271,6 +272,10 @@ FROM table_name;
 LIMIT 5 OFFSET 5;
 ```
 
+使用注释
+1. 使用`--`进行行内注释
+2. 使用`#`进行行内注释
+3. 使用`/* XXXXXXXX */` 进行多行注释
 
 ## 第 3 章 排序检索数据 
 
