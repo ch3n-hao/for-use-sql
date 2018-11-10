@@ -1,19 +1,23 @@
+
 [TOC]
 # 零、创建数据库、表的结构
+```
+CREATE DATABASE database_name; # 创建数据库
+DROP database_name; # 删除数据库
+```
 
 ## 第 17 章 创建、更新、删除、重命名表的结构(table)
-
-- 创建表 
+- 创建表
 
 ```sql
-CREAT TABLE table_name
+CREATE TABLE table_name
 (      col1 该列数据类型 NOT NULL / NULL ,
        col2 该列数据类型 NOT NULL / NULL,
        col3 该列数据类型 ，
        col3 该列数据类型 NOT NULL DEFUALT 10
-); 
+);
 ```
-- 更新表 
+- 更新表
 
 增加字段、删除字段
 尽可能减少对表结构的修改，在设计数据库的时候，尽可能更改表考虑
@@ -34,13 +38,13 @@ DROP COLUMN col_name;
 5. 重命名新表
 6. 根据需求，添加SQL的高级特性
 
-- 删除表 
+- 删除表
 
 ```sql
 DROP TABLE table_name;
 ```
 
-- 重命名表 **此处有待根据使用的数据系统确定** 
+- 重命名表 **此处有待根据使用的数据系统确定**
 
 ```sql
 RENAME old_table_name new_table_table
@@ -65,7 +69,7 @@ RENAME old_table_name new_table_table
          col2_data,
          col3_data,
          col4_data,
-         NULL); 
+         NULL);
 ```
 
 ```sql
@@ -79,7 +83,7 @@ RENAME old_table_name new_table_table
          col2_data,
          col3_data,
          col4_data,
-         NULL); 
+         NULL);
 ```
 
 2. 插入行的某一部分，也就是其中的某些字段
@@ -88,24 +92,24 @@ RENAME old_table_name new_table_table
 # 插入部分行，省略其中的某些字段，该字段必须满足允许`NULL`值或给出默认值
   INSERT INTO table_name(col1,
                          col2,
-                         col3 NULL, 
+                         col3 NULL,
                          col4,
                          col5 DEFUALT 10)
   VALUES(col1_data,
          col2_data,
 
          col4_data,
-         NULL); 
+         NULL);
 ```
 
 3. 插入查询语句的结果
 
 ```SQL
-# 这里要建立新表，并且`SELECT`语句返回的是列的位置，第一列填充制定的第一列 
+# 这里要建立新表，并且`SELECT`语句返回的是列的位置，第一列填充制定的第一列
 INSERT INTO table2(col1,
                    col2,
                    col3,
-                   col4) 
+                   col4)
 SELECT col5,
        col6,
        col7,
@@ -185,21 +189,21 @@ FROM[要求检索的表]
 WHERE[行级过滤]
 GROUP BY[无序分组]
 HAVING[组级过滤]
-ORDER BY[有序分组] 
-LIMIT n1 OFFSET n2[限制从 n2 行起返回 n1 行] 
+ORDER BY[有序分组]
+LIMIT n1 OFFSET n2[限制从 n2 行起返回 n1 行]
 #每条 SQL 语句以 `;`结束
 ```
 
 内联结 自联结 自然联结 交叉联结 左 右 全外联结
 
-## 第 2 章 检索数据（SELECT） 
+## 第 2 章 检索数据（SELECT）
 
 关键字：sql 中的保留字，不能作为列或者表的名字
 sql 语句不区分大小写，sql 关键字一般大写，表名和列名一般小写
 数据库系统在处理 sql 语句时，其中空格均被忽略，格式只是为了便于阅读
 多条 sql 语句，必须使用`;`为结尾区分
 
-使用`SELECT`检索数据，必须给出 
+使用`SELECT`检索数据，必须给出
 想选择什么
 从什么地方选
 返回表中的所有行，并且返回的数据没有特定的顺序
@@ -227,12 +231,12 @@ FROM table_name;
 
 ```SQL
 # 检索不同的值
-SELECT DISTINCT cols 
+SELECT DISTINCT cols
 FROM table_name;
 ```
 
-限制返回一定数量的行数，不同的DBMS不同，这里特指MySql、Postgresql、SQLite 
-`LIMIT n` 指定返回的数目 n  
+限制返回一定数量的行数，不同的DBMS不同，这里特指MySql、Postgresql、SQLite
+`LIMIT n` 指定返回的数目 n 
 `OFFSET n` 指定从第 n 行开始计数，默认从第 0 行开始
 
 ```SQL
@@ -241,7 +245,7 @@ SELECT col1
 FROM table_name;
 LIMIT 5;
 
-# 返回从第 5 行开始的 5 条记录 
+# 返回从第 5 行开始的 5 条记录
 SELECT col1
 FROM table_name;
 LIMIT 5 OFFSET 5;
@@ -278,7 +282,7 @@ FROM table_name
 ORDER BY col2 DESC,col3;#若想每一列按照降序排列，则均要指定 DESC
 ```
 
-## 第 4 章 过滤数据 
+## 第 4 章 过滤数据
 
 `WHERE`子句用来筛选特定的行
 `WHERE`子句接在`FROE`子句之后
@@ -287,21 +291,21 @@ ORDER BY col2 DESC,col3;#若想每一列按照降序排列，则均要指定 DES
 ```SQL
 #过滤单列
 SELECT col1,col2,col3,...,col4
-FROM tables 
+FROM tables
 WHERE col1<>1.0;
 
 #检查某个范围
 SELECT col1,col2,col3,...,col4
-FROM tables 
+FROM tables
 WHERE col1 BETWEEN 1.0 AND 5.0;
 
 #检查空值
 SELECT col1,col2,col3,...,col4
-FROM tables 
+FROM tables
 WHERE coln IS NULL;
 ```
 
-## 第 5 章 高级数据过滤 
+## 第 5 章 高级数据过滤
 
 - 多个 WHERE 子句
 
@@ -311,8 +315,8 @@ WHERE 子句可以包括多个 AND 和 OR 子句
 优先级：「()」>AND>OR
 
 ```sql
-SELECT col1,col2,...,coln 
-FROM table 
+SELECT col1,col2,...,coln
+FROM table
 WHERE condition1 < 2.0 AND/OR condition2 != 5.0;
 ```
 
@@ -322,8 +326,8 @@ WHERE condition1 < 2.0 AND/OR condition2 != 5.0;
 IN 中同样可以使用 SELECT 子句
 
 ```sql
-SELECT col1,col2,...,coln 
-FROM table 
+SELECT col1,col2,...,coln
+FROM table
 WHERE col4 in ("condition1","condition2",...,"conditionn");
 ```
 
@@ -331,36 +335,36 @@ WHERE col4 in ("condition1","condition2",...,"conditionn");
 否定要过滤的列之后的关键字
 
 ```
-SELECT col1,col2,...,coln 
-FROM table 
+SELECT col1,col2,...,coln
+FROM table
 WHERE NOT col4 = "ABCD"
 ORDER BY col1;
 ```
 
-## 第 6 章 用通配符过滤数据 
+## 第 6 章 用通配符过滤数据
 
 用来匹配一部分特殊字符、特殊模式，区分大小写
 用来匹配一个字段的值，是完整的
 
 - LIKE 操作符
-1. % 表示任意字符出现任意次数
-2. \_ 只匹配单个字符
-3. [ ] 用来匹配指定位置的指定字符集的任意一个字符   
+1. `%` 表示任意字符出现任意次数
+2. `\_` 只匹配单个字符
+3. `[ ]` 用来匹配指定位置的指定字符集的任意一个字符  
 4. 不要过度使用通配符
 5. 不要将通配符置于匹配模式开头
 
 ```sql
-SELECT col1,col2,...,coln 
-FROM table 
+SELECT col1,col2,...,coln
+FROM table
 WHERE col3 LIKE '%Fish%';
 WHERE col3 LIKE '_Fish__';
-WHERE col3 LIKE '[A^CV]%'; #匹配任意以A、V之后的任意数目字符 
+WHERE col3 LIKE '[A^CV]%'; #匹配任意以A、V之后的任意数目字符
 WHERE NOT col3 LIKE '[ACV]%';
 ```
 
-## 第 7 章 创建计算字段 
+## 第 7 章 创建计算字段
 
-由原有的 field 计算新的 field 
+由原有的 field 计算新的 field
 
 ```sql
 SELECT col1 || col2 # 将两个字段拼接 Postgresql
@@ -368,11 +372,11 @@ SELECT Concat(col1,col2) #MySql 连接字段的函数
 FROM table;
 ```
 
-对字段使用「TRIM LTRIM RTRIM」函数， 分别去掉字符串左右两边、左边、右边的空格 
+对字段使用「TRIM LTRIM RTRIM」函数， 分别去掉字符串左右两边、左边、右边的空格
 使用关键字 `AS`(alias) 将计算字段得到的值用新字段命名
 
 ```sql
-SELECT Concat(TRIM(col1),col2) AS newcol #MySql 连接字段的函数
+SELECT Concat(TRIM(col1),col2) AS newcol # MySql 连接字段的函数
 FROM table;
 ```
 
@@ -384,32 +388,34 @@ FROM table
 WHERE col3 10.0 between 20.0;
 ```
 
-## 第 8 章 使用函数处理数据 
+## 第 8 章 使用函数处理数据
 
 文本处理、
 数值运算、
 日期-时间：提取日期成分、比较日期、执行基于日期的运算、选择日期格式
 
 ```sql
-SELECT func1(col1) AS newcol1,func2(col2) AS newcol2 
-FROM table 
+SELECT func1(col1) AS newcol1,func2(col2) AS newcol2
+FROM table
 WHERE func3(col1) = func3('string')
 ```
 
-## 第 9 章 汇总数据 
+## 第 9 章 汇总数据
 
-汇总数据而不是将其检索出来
 聚集函数（aggregate function）：
+汇总数据而不是将其检索出来，**聚合函数不能用于 `WHERE` 子句**
+```
 AVG()：只能作用于一列，返回该列的平均值
 COUNT()：COUNT(\*)对表中行数进行统计，COUNT(col)统计一列行数
 MAX() MIN()：返回该列的最大值/最小值
 SUM()：求和
-DISTINCT 不能用于 COUNT(*) & 表达式 
+DISTINCT 不能用于 COUNT(*) & 表达式
+```
 
 ```sql
-SELECT AVG /COUNT /MAX /MIN /SUM(DISTINCT col / *) AS new_col 
-FROM table 
-WHERE condition 
+SELECT AVG /COUNT /MAX /MIN /SUM(DISTINCT col / *) AS new_col
+FROM table
+WHERE condition
 ```
 
 ## 第 10 章 分组数据 
@@ -417,27 +423,28 @@ WHERE condition
 - GROUP 子句
 
 1. GROUP BY 子句可附带任意数目的列
-2. GROUP BY 子句嵌套了分组， 则将在最后指定的分组上汇总 
-3. 除了聚集函数之外，SELECT 中的每一列都要在 GROUP BY 子句中给出 
+2. GROUP BY 子句嵌套了分组， 则将在最后指定的分组上汇总
+3. SELECT 的每一列要么在 GROUP BY 子句中给出，要么就被包含到聚集函数中
 4. SELECT 中使用了表达式（不能使聚集函数），那么 GROUP BY 则必须使用同样的表达式
 5. WHERE > GROUP BY > ORDER BY
 
 ```sql
-SELECT col1,col2 
-FROM tables 
-WHERE cond1 
+SELECT col1,col2
+FROM tables
+WHERE cond1
 GROUP BY col1,col2 #在 col2 上进行汇总
-ORDER BY col3 
+ORDER BY col3
 ```
 
 - HAVING 子句
 
 1. WHERE 子句在数据分组之前过滤
 2. HAVING 子句在数据分组之后过滤，结合 GROUP BY 使用
+3. HAVING 子句中可使用聚合函数
 
 ```sql
-SELECT col1,col2,COUNT(*) AS newcol3 
-FROM tables 
+SELECT col1,col2,COUNT(*) AS newcol3
+FROM tables
 WHERE col4 > 4.0
 GROUP BY col1 #在 newcol3 上进行汇总
 HAVING COUNT(*) > 6;
@@ -447,27 +454,24 @@ HAVING COUNT(*) > 6;
 
 todo
 
-## 第 11 章 使用子查询 -- 嵌套在查询中的其他查询 
+## 第 11 章 使用子查询 -- 嵌套在查询中的其他查询
 
 子查询总是从内到外处理
 子查询只能查询单列
 
-- 使用子查询进行过滤 
-将 WHERE 子句条件转换为子查询
+- 使用子查询进行过滤，作为`WHERE`子句的一部分
 ```sql
-SELECT col1,col2 
-FROM table1 
-WHERE col3 IN (SELECT col3 
-               FROM table2 
+SELECT col1,col2
+FROM table1
+WHERE col3 IN (SELECT col3
+               FROM table2
                WHERE condition);
 ```
 
-- 使用子查询创建计算字段
-
-将查询的结果作为新的字段
+- 使用子查询创建`SELECT`的字段
 
 ```SQL
-SELECT 
+SELECT
       col1,
       col2,
       (SELECT COUNT(*)
@@ -480,59 +484,77 @@ HAVING newcol3 > 1.0
 ORDER BY col2;
 ```
 
+- 子查询的结果作为`FROM`查询范围
+
+```sql
+SELECT S.*,B.MAXD 
+FROM SCORES AS S, (SELECT SNO,MAX(DEGREE) AS MAXD 
+       FROM SCORES
+       GROUP BY SNO 
+       HAVING COUNT(*)>1 ) AS B 
+WHERE S.SNO=B.SNO 
+AND S.DEGREE<B.MAXD 
+ORDER BY SNO; 
+```
+
 - 完全限定列名避免歧义
 
 **table_name.col_name**
 
-## 第 12 章 联结(join)表 
-
-
+## 第 12 章 联结(join)表
 
 需要继续学习数据库原理
 
 关系表的设计就是要把信息分解为多个表。通过某些共同的值互相关联。
-
-
 
 创建联结，指定要联结的表以及联结的方式。若没有在 WHERE 子句中指定联结方式则作笛卡尔积。
 
 - 内联结(等值联结)
 
 ```sql
-SELECT col1,col2,col3...coln 
+SELECT col1,col2,col3...coln
 FROM table1,table2
-WHERE table1.col4 = table2.col4 
+WHERE table1.col4 = table2.col4
 ```
-或者 
+或者
 ```SQL
-SELECT col1,col2,col3 
-FROM table1 INNER JOIN table2 
-ON table1.col4 = table2.col4;
+SELECT col1,col2,col3
+FROM table1 INNER JOIN table2
+ON table1.col4 = table2.col4 and condition3;
 ```
 
 - 联结多个表 & 普通过滤
 
 ```sql
-SELECT col1,col2,col3...coln 
+SELECT col1,col2,col3...coln
 FROM table1,table2,table3
-WHERE table1.col3 = table2.col3 
+WHERE table1.col3 = table2.col3
 AND table2.col5 = table3.col5
 AND col7 = "XXX";
 ```
+
+```sql
+select * 
+from ( ((A inner join B on A.a = B.b)
+inner join C on C.c = A.a)
+inner join D on D.d = C.c)
+inner join E on E.e = D.d;
+```
+
 
 ## 第 13 章 创建高级联结
 
 - 给表起别名 table AS new_table_name
 可用于 WHERE 子句、ORDER BY 子句、SELECT 列表
 ```sql
-SELECT col1,col2,col3...coln 
-FROM table1 AS t1,table2 AS t2 
+SELECT col1,col2,col3...coln
+FROM table1 AS t1,table2 AS t2
 WHERE t1.col3 = t2.col3;
 ```
 - 自联结(self-join)
 使用别名，同一张表与自身做联结
-```sql 
-SELECT c1.col1,c1.col2,c1.col3 
+```sql
+SELECT c1.col1,c1.col2,c1.col3
 FROM table1 AS c1,table1 AS c2
 WHERE c1.col2 = c2.col2
 AND C2.col3 = "XXXX";
@@ -551,14 +573,14 @@ AND   t2.col3 = t3.col5
 AND   t1.col2 = "XXXXX";
 ```
 
-- 外联结(outer-join) 
+- 外联结(outer-join)
 
 将一个表中的行与另一个表中的行相关联，但有时候需要包含没有关联行的那些行。
 
 ```SQL
-SELECT table1.col1,table2.col2 
-FROM table1 LEFT OUTER JOIN table2 # 指定包括所有行的表 左边 
-FROM table1 RIGHT OUTER JOIN table2 # 指定包含所有行的表 右边 
+SELECT table1.col1,table2.col2
+FROM table1 LEFT OUTER JOIN table2 # 指定包括所有行的表 左边
+FROM table1 RIGHT OUTER JOIN table2 # 指定包含所有行的表 右边
 ON table1.col4 = table2.col4;
 ```
 
@@ -566,13 +588,13 @@ ON table1.col4 = table2.col4;
 
 ```SQL
 SELECT table1.col1,
-       COUNT(table2.col2) AS newcol2 
+       COUNT(table2.col2) AS newcol2
 FROM table1 INNER JOIN table2
 ON table1.col4 = table2.col4
 GROUP BY table1.col1;
 ```
 
-## 第 14 章 组合(UNION)查询 
+## 第 14 章 组合(UNION)查询
 
 UNION 操作符
 
@@ -584,8 +606,8 @@ UNION 操作符
 ```sql
 SELECT col1,col2,col3
 FROM table1
-WHERE condition1 
-UNION 
+WHERE condition1
+UNION
 SELECT col1,col2,col3
 FROM table1
 WHERE condition2
@@ -612,7 +634,7 @@ ORDER BY col2，col3；
 
 使用游标(cursor / step) ,是一个存储在 DBMS 服务器上的数据集查询，不同的 DBMS 不同 1.声明游标 ：定义使用的 SELECT 语句和游标选项 2.声明后，必须打开使用 3. 使用后必须关闭游标。定义游标： DECLARE CURSOR cursor_name IS SELCT 子句 / 打开游标,执行查询，储存查询的数据以供浏览： O
 
-## 第 22 章 高级 SQL 特性 
+## 第 22 章 高级 SQL 特性
 
 ### 约束
 ### 索引
